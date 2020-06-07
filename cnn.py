@@ -144,3 +144,4 @@ def show_mistakes(model, index, X_test, y_test):
     plt.xlabel('Predicted label')
     plt.draw()
     plt.savefig('model' + str(index) + '_mistakes.png')
+    plt.clf()
