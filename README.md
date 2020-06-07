@@ -59,7 +59,7 @@ Sources of inspiration and information for building cnn model:
 
 ## Results
 ### KNN model
-Training process on my konputer took about 25 minutes. All the results of training and testing are saved to files: /plots/knn_accuracy.png, results/knn_train_results.txt and results/knn_test_results.txt.
+Training and testing process on my computer took about 45 minutes. All the results of training and testing are saved to files: /plots/knn_accuracy.png, results/knn_train_results.txt and results/knn_test_results.txt.
 
 After selecting the best knn model, it turns out that the best k is **11**, with the accuracy: **0,7455**
 
