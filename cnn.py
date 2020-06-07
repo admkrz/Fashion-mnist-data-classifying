@@ -28,6 +28,8 @@ def run_cnn(X_train, X_val, X_test, y_train, y_val, y_test):
     model.add(Dropout(0.5))
     model.add(Dense(10, activation='softmax'))
 
+    model.summary()
+
     # Training the model
     train_model(model, X_train, X_val, y_train, y_val)
 
@@ -36,7 +38,7 @@ def run_cnn(X_train, X_val, X_test, y_train, y_val, y_test):
 
 
 def train_model(model, X_train, X_val, y_train, y_val):
-    file = open("/results/model_train_results.txt", 'w+')
+    file = open("results/model_train_results.txt", 'w+')
     # Model summary
     file.write("TRAINING CNN MODEL\n")
 
@@ -56,7 +58,7 @@ def train_model(model, X_train, X_val, y_train, y_val):
 
 
 def test_model(X_test, y_test):
-    file = open("/results/model_test_results.txt", 'w+')
+    file = open("results/model_test_results.txt", 'w+')
     # Load in the best model from ModelCheckpoint
     best_model = load_model('best_model.h5')
     # Check the best model accuracy on test data
@@ -86,7 +88,7 @@ def accuracy_plot(model, file):
     plt.ylabel('Accuracy')
     plt.ylim(0.8, 1)
     plt.draw()
-    plt.savefig('/plots/model_accuracy.png')
+    plt.savefig('plots/model_accuracy.png')
 
 
 def show_mistakes(model, X_test, y_test):
@@ -113,6 +115,6 @@ def show_mistakes(model, X_test, y_test):
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.draw()
-    plt.savefig('/plots/model_mistakes.png')
+    plt.savefig('plots/model_mistakes.png')
     plt.clf()
     plt.figure(figsize=None)
