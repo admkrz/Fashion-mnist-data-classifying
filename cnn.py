@@ -88,7 +88,7 @@ def accuracy_plot(model, file):
     plt.plot(model.history.history['val_accuracy'])
     plt.plot(model.history.history['accuracy'])
     plt.legend(["validation data", "training data"])
-    plt.title('Test Accuracy by Epoch')
+    plt.title('Model Accuracy by Epoch')
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy')
     plt.ylim(0.8, 1)
