@@ -61,18 +61,18 @@ Sources of inspiration and information for building cnn model:
 ### KNN model
 Training and testing process on my computer took about 45 minutes. All the results of training and testing are saved to files: /plots/knn_accuracy.png, results/knn_train_results.txt and results/knn_test_results.txt.
 
-After selecting the best knn model, it turns out that the best k is **11**, with the accuracy: **0,7455**
+After selecting the best knn model, it turns out that the best k is **11**, with the accuracy: **0.7455**
 
-![](./plots/knn_accuracy.png)
+![](./plots_for_readme/knn_accuracy.png)
 
-When the model with that k is tested on the test data, we get the accuracy of the model: **0,7321**
+When the model with that k is tested on the test data, we get the accuracy of the model: **0.7321**
 
 It is significantly less than the accuracy presented in the benchmark table:
 
 | Name | Accuracy |
 |------|----------|
-| **MyKNN** | **0,7321** |
-| KNeighborsClassifier | 0,86 |
+| **MyKNN** | **0.7321** |
+| KNeighborsClassifier | 0.86 |
 
 There could be a few explanations for this difference in the results, but I think that the main two are: the difference in measuring the distance between two sets of images - my algorithm uses hamming distance, while the KNeighboursClassifier uses manhattan distance, the second one is that the algorithm from scikit-learn library weights all neighbours with thier distance to each other.
 
@@ -83,22 +83,22 @@ Training process on my computer for 20 epochs took about 35 minutes. All the res
 
 After selecting training cnn model, it turns out that the best model was in epoch **15**, with the validation accuracy: **0.9386**
 
-![](./plots/model_accuracy.png)
+![](./plots_for_readme/model_accuracy.png)
 
 Considering that test and validation accuracy are relatively close to each other, we can assume, that the model is not greatly under or overfitted, but we can also see that after epoch number 10 the model started to slightly overfit.
 
-When the best model is tested on the test data, we get the accuracy of the model: **0.931**
+When the best model is tested on the test data, we get the accuracy of the model: **0.9324**
 
 It is far more than the accuracy of the best algorithm from scikit-learn library:
 
 | Name | Accuracy |
 |------|----------|
-| **MyCNN** | **0,931** |
-| SVC | 0,897 |
-| 2 Conv <100K parameters | 0,925 |
-| 2 Conv+pooling+BN	| 0,934 |
+| **MyCNN** | **0.9324** |
+| SVC | 0.897 |
+| 2 Conv <100K parameters | 0.925 |
+| 2 Conv+pooling+BN	| 0.934 |
 | GoogleNet with cross-entropy loss | 0.939 |
-| CNN with optional shortcuts, dense-like connectivity | 0,947 |
+| CNN with optional shortcuts, dense-like connectivity | 0.947 |
 
 Compared to the other deep learning algorithms submitted by users, my model do quite well. Escpecially compared to other convolutional neural networks without augmentation, my algorithm works very well.
 
@@ -106,7 +106,7 @@ What is the most difficult piece of clothing to the model to classify?
 
 After training and testing the model, I also wanted to visualize where the model makes mistakes - a confusion matrix:
 
-![](./plots/model_mistakes.png)
+![](./plots_for_readme/model_mistakes.png)
 
 We can see how many images in each class have been predicted to their correct class and to other classes. It is clear that there are certain categories which are more difficult for the model than other. The categories: T-shirt, Shirt, Coat, Dress, Pullover - they all look very similiar and they are the cause of the majority of errors. Also Sneakers, Sandals and Ankle Boot are sometimes wrongly predicted.
 
@@ -123,6 +123,6 @@ You also have to install all of these libraries dependencies.
 
 To train and test models presented in the results section, you have to run the main.py file from this repository.
 
-If you want to skip the training process and get just the test results from the best, trained models, you have to comment line 144 in knn.py and 39 in cnn.py - they are responsible for training the new models, if they're commented, the models will be loaded from files in the repository. The KNN model will load the best k value from file /models/best_knn_model.txt and the CNN model will be loaded from file /models/best_model.h5.
+If you want to get exactly the same results as in the section above, you have to skip the training process comment line 144 in knn.py and 39 in cnn.py - they are responsible for training the new models, if they're commented, the models will be loaded from files in the repository. The KNN model will load the best k value from file /models/best_knn_model.txt and the CNN model will be loaded from file /models/best_model.h5.
 
 All the results of the program are saved to directories /plots - plots from training models, /models - saving best models for later use, /results - accuracy results of training and testing.
