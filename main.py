@@ -37,7 +37,7 @@ def run_models():
     X_train, y_train, X_val, y_val, X_test, y_test = loadData()
 
     # Run KNN
-    run_knn(X_train, y_train, X_val, y_val, X_test, y_test)
+    # run_knn(X_train, y_train, X_val, y_val, X_test, y_test)
 
     # Neural network model testing
     # Preprocess data before modeling CNN
