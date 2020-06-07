@@ -33,6 +33,38 @@ Finally, the trained model is evaluated on the 10000 test data set, which gives 
 Sources of inspiration and information for building cnn model:
 
 ## Results
+### KNN model
+After selecting the best knn model, it turns out that the best k is XX:
+
+[WYKRES]
+
+When the model with that k is tested on the test data, we get the accuracy of the model: **XXX**
+
+It is significantly less than the accuracy presented in the benchmark table:
+
+| Name | Accuracy |
+|------|----------|
+| MyKNN | XXX |
+| KNeighborsClassifier | 0,86 |
+
+There could be a few explanations for this difference in the results, but I think that the main two are: the difference in measuring the distance between two sets of images - my algorithm uses hamming distance, while the KNeighboursClassifier uses manhattan distance, the second one is that the algorithm from scikit-learn library weights all neighbours with thier distance to each other.
+
+Of course the biggest difference in these algorithms is that the scikit-learn one is far more and better optimized and written than mine.
+
+### CNN model
+
+After selecting training cnn model, it turns out that the best model was in epoch XX, with the validation accuracy=:
+
+[WYKRES]
+
+When the best model is tested on the test data, we get the accuracy of the model: **XXX**
+
+It is far more than the accuracy of the best algorithm from scikit-learn library:
+
+| Name | Accuracy |
+|------|----------|
+| MyCNN | XXX |
+| SVC | 0,897 |
 
 
 ## Usage
@@ -48,4 +80,4 @@ You also have to install all of these libraries dependencies.
 
 To train and test models presented in the results section, you have to run the main.py file from this repository.
 
-If you want to skip the training process and get just the test results from the best, trained models, you have to comment line 136 in knn.py and 37 in cnn.py - they are responsible for training the new models, if they're commented, the model will be loaded from file.
+If you want to skip the training process and get just the test results from the best, trained models, you have to comment line 136 in knn.py and 37 in cnn.py - they are responsible for training the new models, if they're commented, the models will be loaded from files in the repository.
