@@ -106,7 +106,7 @@ def accuracy_plot(model, index, file):
     best_accuracy = max(model.history.history['val_accuracy'])
     best_epoch = model.history.history['val_accuracy'].index(best_accuracy)
     print('\n----------------- Wyuczony najlepszy model --------------------')
-    print('--------- Epoka: {}, najlepsze dopasowanie: {} -----------------').format(best_epoch, best_accuracy)
+    print('--------- Epoka: ' + str(best_epoch) + ', najlepsze dopasowanie: ' + str(best_accuracy) + ' -----------------')
     file.write('\n----------------- Wyuczony najlepszy model --------------------')
     file.write('--------- Epoka: ' + str(best_epoch) + ', najlepsze dopasowanie: ' + str(best_accuracy) + ' -----------------')
     plt.plot(model.history.history['val_accuracy'])
