@@ -124,12 +124,12 @@ def train_knn(X_train, y_train, X_val, y_val, k_values):
     file = open('results/knn_train_results.txt', 'w+')
     file.write('--- Number of neighbours selection for KNN model - TRAINING THE MODEL ---\n')
     file.write('---------------------- K values: 1, 3, ..., 100 -------------------------\n')
-    file.write('Best k: {num1}, Best error: {num2:.4f}'.format(num1=best_k, num2=error_best))
+    file.write('Best k: {num1}, Best accuracy: {num2:.4f}'.format(num1=best_k, num2=1-error_best))
     print('\n--- Number of neighbours selection for KNN model - TRAINING THE MODEL ---')
     print('-------------------- K values: 1, 3, ..., 100 -----------------------')
-    print('Best k: {num1}, Best error: {num2:.4f}'.format(num1=best_k, num2=error_best))
+    print('Best k: {num1}, Best accuracy: {num2:.4f}'.format(num1=best_k, num2=1-error_best))
     file.close()
-    plot_KNN_accuracy(k_values, 1 - errors)
+    plot_KNN_accuracy(k_values, np.subtract(1, errors))
 
 
 def run_knn(X_train, y_train, X_val, y_val, X_test, y_test):

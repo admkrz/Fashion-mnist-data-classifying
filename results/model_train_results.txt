@@ -1,4 +1,0 @@
-TRAINING CNN MODEL
-
----------------------- BEST TRAINED MODEL ----------------------
---------- Epoch: 15, best accuracy: 0.9386666417121887 ---------
