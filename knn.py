@@ -10,8 +10,6 @@ def hamming_distance(X, X_train):
     :param X_train: zbiór obiektów do których porównujemy N2xD
     :return: macierz odległości pomiędzy obiektami z "X" i "X_train" N1xN2
     """
-    print(np.shape(X_train))
-    print(np.shape(X))
     X_train = X_train.transpose()
     out_array = (~X).astype(int) @ X_train.astype(int) + X.astype(int) @ (~X_train).astype(int)
     return out_array
@@ -105,22 +103,32 @@ def model_selection_knn(X_val, X_train, y_val, y_train, k_values):
 
 
 def evaluate_knn(X_train, X_test, y_train, y_test):
-    best_k = int(open("best_knn_model.txt", "r").read())
+    best_k = int(open("/models/best_knn_model.txt", "r").read())
     # Evaluating model on test data
     y_sorted = sort_train_labels_knn(hamming_distance(X_test, X_train), y_train)
     model_score = classification_score(p_y_x_knn(y_sorted, best_k), y_test)
-    print('\n-----------------------------------------------------------------------\n')
+    file=open('/results/knn_test_results.txt','w+')
+    file.write('--------- KNN TEST FOR k = {num} -----------\n'.format(num=best_k))
+    file.write('BEST KNN MODEL ACCURACY ON TEST DATA: {num}'.format(num=model_score))
+    file.write('\n---------------------------------------------------')
+    print('\n--------- KNN TEST FOR k = {num} -----------\n'.format(num=best_k))
     print('BEST KNN MODEL ACCURACY ON TEST DATA: {num}'.format(num=model_score))
-    print('\n-----------------------------------------------------------------------\n')
+    print('\n---------------------------------------------------\n')
+    file.close()
     return model_score, best_k
 
 
 def train_knn(X_train, y_train, X_val, y_val, k_values):
-    score, error_best, best_k, errors = model_selection_knn(X_val, X_train, y_val, y_train, k_values)
-    open("best_knn_model.txt", "w+").write(best_k)
+    error_best, best_k, errors = model_selection_knn(X_val, X_train, y_val, y_train, k_values)
+    open("/models/best_knn_model.txt", "w+").write(best_k)
+    file = open('/results/knn_train_results.txt', 'w+')
+    file.write('--- Number of neighbours selection for KNN model - TRAINING THE MODEL ---\n')
+    file.write('---------------------- K values: 1, 3, ..., 100 -------------------------\n')
+    file.write('Best k: {num1}, Best error: {num2:.4f}'.format(num1=best_k, num2=error_best))
     print('\n--- Number of neighbours selection for KNN model - TRAINING THE MODEL ---')
     print('-------------------- K values: 1, 3, ..., 100 -----------------------')
     print('Best k: {num1}, Best error: {num2:.4f}'.format(num1=best_k, num2=error_best))
+    file.close()
     plot_KNN_accuracy(k_values, 1 - errors)
 
 
@@ -144,6 +152,6 @@ def plot_KNN_accuracy(xs, ys):
     plt.xlabel('Number of neighbours k')
     plt.ylabel('Model accuracy')
     plt.title("Selecting a model for k-NN")
-    plt.plot(xs, ys, 'r-')
+    plt.plot(xs, ys)
     plt.draw()
-    plt.savefig('knn_accuracy.png')
+    plt.savefig('/plots/knn_accuracy.png')
