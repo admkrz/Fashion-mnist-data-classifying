@@ -120,7 +120,7 @@ def evaluate_knn(X_train, X_test, y_train, y_test):
 
 def train_knn(X_train, y_train, X_val, y_val, k_values):
     error_best, best_k, errors = model_selection_knn(X_val, X_train, y_val, y_train, k_values)
-    open("/models/best_knn_model.txt", "w+").write(best_k)
+    open("/models/best_knn_model.txt", 'w+').write(best_k)
     file = open('/results/knn_train_results.txt', 'w+')
     file.write('--- Number of neighbours selection for KNN model - TRAINING THE MODEL ---\n')
     file.write('---------------------- K values: 1, 3, ..., 100 -------------------------\n')
