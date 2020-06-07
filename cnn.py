@@ -10,7 +10,7 @@ from keras.models import load_model
 from sklearn.metrics import confusion_matrix
 
 BATCH_SIZE = 128
-EPOCHS = 4
+EPOCHS = 20
 
 
 def run_cnn(X_train, X_val, X_test, y_train, y_val, y_test):
@@ -44,14 +44,12 @@ def run_cnn(X_train, X_val, X_test, y_train, y_val, y_test):
 
 def train_model(model, X_train, X_val, y_train, y_val):
     file = open("results/model_train_results.txt", 'w+')
-    # Model summary
-    file.write("TRAINING CNN MODEL\n")
 
     # Compile the model
     model.compile(optimizer='adam', metrics=['accuracy'], loss='categorical_crossentropy')
 
     # Use ModelCheckpoint to save the best model from all epochs
-    callback = [ModelCheckpoint(filepath='best_model.h5', monitor='val_accuracy', save_best_only=True,
+    callback = [ModelCheckpoint(filepath='models/best_model.h5', monitor='val_accuracy', save_best_only=True,
                                 mode='max')]
 
     # Fit the model with train and validation data
@@ -65,13 +63,16 @@ def train_model(model, X_train, X_val, y_train, y_val):
 def test_model(X_test, y_test):
     file = open("results/model_test_results.txt", 'w+')
     # Load in the best model from ModelCheckpoint
-    best_model = load_model('best_model.h5')
+    best_model = load_model('models/best_model.h5')
     # Check the best model accuracy on test data
-    file.write("\n---------------------------- BEST MODEL ON TEST DATA: ---------------------------\n")
-    file.write(
-        "-------- ACCURACY VALUE FOR TEST DATA: " + str(best_model.evaluate(X_test, y_test)[1]) + " ---------")
-    file.write("\n-----------------------------------------------------------------------\n")
+    best_acc=best_model.evaluate(X_test, y_test)[1]
+    file.write("\n--------------------- BEST MODEL ON TEST DATA: --------------------\n")
+    file.write("-------- ACCURACY VALUE FOR TEST DATA: " + str(best_acc) + " ---------")
+    file.write("\n-------------------------------------------------------------------\n")
     file.close()
+    print("\n--------------------- BEST MODEL ON TEST DATA: --------------------")
+    print("-------- ACCURACY VALUE FOR TEST DATA: " + str(best_acc) + " ---------")
+    print("-------------------------------------------------------------------\n")
     # Show mistakes matrix made by the model
     show_mistakes(best_model, X_test, y_test)
 
@@ -79,11 +80,10 @@ def test_model(X_test, y_test):
 def accuracy_plot(model, file):
     best_accuracy = max(model.history.history['val_accuracy'])
     best_epoch = model.history.history['val_accuracy'].index(best_accuracy)
-    print('\n----------------------- Wyuczony najlepszy model ----------------------')
-    print('--------- Epoka: ' + str(best_epoch) + ', najlepsze dopasowanie: ' + str(best_accuracy) + ' ---------')
-    file.write('\n----------------------- Wyuczony najlepszy model ----------------------')
-    file.write(
-        '\n--------- Epoka: ' + str(best_epoch) + ', najlepsze dopasowanie: ' + str(best_accuracy) + ' ---------')
+    print('\n---------------------- BEST TRAINED MODEL ----------------------')
+    print('--------- Epoch: ' + str(best_epoch) + ', best accuracy: ' + str(best_accuracy) + ' ---------')
+    file.write('\n---------------------- BEST TRAINED MODEL ----------------------')
+    file.write('\n--------- Epoch: ' + str(best_epoch) + ', best accuracy: ' + str(best_accuracy) + ' ---------')
     plt.figure(2)
     plt.plot(model.history.history['val_accuracy'])
     plt.plot(model.history.history['accuracy'])
