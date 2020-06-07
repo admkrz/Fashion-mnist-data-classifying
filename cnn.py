@@ -63,11 +63,11 @@ def run_cnn(X_train, X_val, X_test, y_train, y_val, y_test):
     TIME3 = t3 - t2
     times = open("times.txt", 'w+')
     times.write("Model 1: ")
-    times.write(TIME1)
+    times.write(str(TIME1))
     times.write("Model 2: ")
-    times.write(TIME2)
+    times.write(str(TIME2))
     times.write("Model 3: ")
-    times.write(TIME3)
+    times.write(str(TIME3))
 
 
 def run_model(model, index, X_train, X_val, X_test, y_train, y_val, y_test):
