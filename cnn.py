@@ -10,7 +10,7 @@ from keras.models import load_model
 from sklearn.metrics import confusion_matrix
 
 BATCH_SIZE = 128
-EPOCHS = 2
+EPOCHS = 4
 
 
 def run_cnn(X_train, X_val, X_test, y_train, y_val, y_test):
@@ -18,19 +18,14 @@ def run_cnn(X_train, X_val, X_test, y_train, y_val, y_test):
     model = Sequential()
 
     # Adding layers to the model
-    model.add(Conv2D(32, kernel_size=3, activation='relu', padding='same'))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.2))
-    model.add(Conv2D(32, kernel_size=3, activation='relu', padding='same'))
-    model.add(Dropout(0.2))
-    model.add(Conv2D(24, kernel_size=3, activation='relu', padding='same'))
-    model.add(Dropout(0.2))
-    model.add(Conv2D(64, kernel_size=3, activation='relu', padding='same'))
+    model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(28, 28, 1)))
+    model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(Conv2D(128, (3, 3), activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.2))
+    model.add(Dropout(0.25))
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
-    model.add(Dropout(0.3))
+    model.add(Dropout(0.5))
     model.add(Dense(10, activation='softmax'))
 
     # Training the model
