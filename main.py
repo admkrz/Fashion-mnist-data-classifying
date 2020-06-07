@@ -1,46 +1,19 @@
-import matplotlib.pyplot as plt
 from keras.utils import np_utils
 from keras.datasets import fashion_mnist
-import numpy as np
 
-from knn import score_knn
+from knn import run_knn
 from cnn import run_cnn
 
 
-def classification_KNN_vs_no_neighbours(xs, ys):
-    #plt.rcParams['image.cmap'] = 'gray'
-    #plt.rcParams['image.interpolation'] = 'none'
-    # plt.style.use(['dark_background'])
-    plt.xlabel('Liczba sasiadow k')
-    plt.ylabel('Blad klasyfikacji')
-    plt.title("Selekcja modelu dla k-NN")
-    plt.plot(xs, ys, 'r-', color='#FFCC55')
-    plt.draw()
-    # plt.waitforbuttonpress(0)
-
-
 def loadData():
+    # Downloading the fashion-mnist data
     (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
-    # X_test, y_test = fashion_mnist.load_data('data/fashion', kind='t10k')
     # Extracting 6000 images for validation data
     X_val = X_train[54000:60000]
     X_train = X_train[0:54000]
     y_val = y_train[54000:60000]
     y_train = y_train[0:54000]
     return X_train, y_train, X_val, y_val, X_test, y_test
-
-
-def run_knn(X_train, y_train, X_val, y_val, X_test, y_test):
-    # KNN model selection
-    k_values = range(1, 101, 2)
-    print('\n--- Selekcja liczby sasiadow dla modelu dla KNN i benchmark na danych testowych ---')
-    print('-------------------- Wartosci k: 1, 3, ..., 100 -----------------------')
-    score, error_best, best_k, errors = score_knn(X_train, X_val, X_test, y_train, y_val, y_test, k_values)
-    print('Najlepsze k: {num1} i najlepszy blad: {num2:.4f}'.format(num1=best_k, num2=error_best))
-    print('DOPASOWANIE MODELU KNN NA DANYCH TESTOWYCH: {num}'.format(num=score))
-    print('\n-----------------------------------------------------------------------\n')
-    print('\n--- Wcisnij klawisz, aby kontynuowac ---')
-    classification_KNN_vs_no_neighbours(k_values, errors)
 
 
 def preprocess_data(X_train, y_train, X_val, y_val, X_test, y_test):
@@ -67,10 +40,10 @@ def run_models():
     # run_knn(X_train, y_train, X_val, y_val, X_test, y_test)
 
     # Neural network model testing
-    # Preprocess data before modeling
+    # Preprocess data before modeling CNN
     X_train, y_train, X_val, y_val, X_test, y_test = preprocess_data(X_train, y_train, X_val, y_val, X_test, y_test)
 
-    # run CNN
+    # Run CNN
     run_cnn(X_train, X_val, X_test, y_train, y_val, y_test)
 
 
