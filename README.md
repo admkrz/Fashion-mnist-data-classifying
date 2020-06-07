@@ -59,19 +59,19 @@ Sources of inspiration and information for building cnn model:
 
 ## Results
 ### KNN model
-Training process on my konputer took about 25 minutes. All the results of training and testing are saved to files: /plots/knn_accuracy.png, results/knn_train_results.txt and results/knn_test_results.txt.
+Training and testing process on my computer took about 45 minutes. All the results of training and testing are saved to files: /plots/knn_accuracy.png, results/knn_train_results.txt and results/knn_test_results.txt.
 
-After selecting the best knn model, it turns out that the best k is **XX**, with the accuracy: **XXX**
+After selecting the best knn model, it turns out that the best k is **11**, with the accuracy: **0,7455**
 
-[WYKRES]
+![](./plots/knn_accuracy.png)
 
-When the model with that k is tested on the test data, we get the accuracy of the model: **XXX**
+When the model with that k is tested on the test data, we get the accuracy of the model: **0,7321**
 
 It is significantly less than the accuracy presented in the benchmark table:
 
 | Name | Accuracy |
 |------|----------|
-| MyKNN | XXX |
+| **MyKNN** | **0,7321** |
 | KNeighborsClassifier | 0,86 |
 
 There could be a few explanations for this difference in the results, but I think that the main two are: the difference in measuring the distance between two sets of images - my algorithm uses hamming distance, while the KNeighboursClassifier uses manhattan distance, the second one is that the algorithm from scikit-learn library weights all neighbours with thier distance to each other.
@@ -100,7 +100,7 @@ It is far more than the accuracy of the best algorithm from scikit-learn library
 | GoogleNet with cross-entropy loss | 0.939 |
 | CNN with optional shortcuts, dense-like connectivity | 0,947 |
 
-Comppared to the other deep learning algorithms submitted by users, my model do quite well. Escpecially compared to other convolutional neural networks without augmentation, my algorithm works very well.
+Compared to the other deep learning algorithms submitted by users, my model do quite well. Escpecially compared to other convolutional neural networks without augmentation, my algorithm works very well.
 
 What is the most difficult piece of clothing to the model to classify?
 
@@ -123,6 +123,6 @@ You also have to install all of these libraries dependencies.
 
 To train and test models presented in the results section, you have to run the main.py file from this repository.
 
-If you want to skip the training process and get just the test results from the best, trained models, you have to comment line 136 in knn.py and 37 in cnn.py - they are responsible for training the new models, if they're commented, the models will be loaded from files in the repository. The KNN model will load the best k value from file /models/best_knn_model.txt and the CNN model will be loaded from file /models/best_model.h5.
+If you want to skip the training process and get just the test results from the best, trained models, you have to comment line 144 in knn.py and 39 in cnn.py - they are responsible for training the new models, if they're commented, the models will be loaded from files in the repository. The KNN model will load the best k value from file /models/best_knn_model.txt and the CNN model will be loaded from file /models/best_model.h5.
 
 All the results of the program are saved to directories /plots - plots from training models, /models - saving best models for later use, /results - accuracy results of training and testing.
