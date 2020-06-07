@@ -8,8 +8,8 @@ from cnn import run_cnn
 
 
 def classification_KNN_vs_no_neighbours(xs, ys):
-    plt.rcParams['image.cmap'] = 'gray'
-    plt.rcParams['image.interpolation'] = 'none'
+    #plt.rcParams['image.cmap'] = 'gray'
+    #plt.rcParams['image.interpolation'] = 'none'
     # plt.style.use(['dark_background'])
     plt.xlabel('Liczba sasiadow k')
     plt.ylabel('Blad klasyfikacji')

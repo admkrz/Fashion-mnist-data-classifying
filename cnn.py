@@ -11,7 +11,7 @@ from keras.models import load_model
 from sklearn.metrics import confusion_matrix
 
 BATCH_SIZE = 128
-EPOCHS = 20
+EPOCHS = 4
 
 
 def run_cnn(X_train, X_val, X_test, y_train, y_val, y_test):
@@ -90,25 +90,25 @@ def run_model(model, index, X_train, X_val, X_test, y_train, y_val, y_test):
 
     # Plot model accuracy through all epochs
     accuracy_plot(model, index, file)
-    show_mistakes(model, index)
+    show_mistakes(model, index, X_test, y_test)
 
     # Load in the best model from ModelCheckpoint
-    best_model = load_model('best_model.h5')
+    best_model = load_model('best_model' + str(index) + '.h5')
 
     # Check the best model accuracy on test data
-    file.write("\nWYNIKI TESTÓW: ")
-    file.write(best_model.evaluate(X_test, y_test))
-    file.write("---------------------------------------------------------\n")
+    file.write("\n---------------------------- WYNIKI TESTÓW: ---------------------------\n")
+    file.write("-------- Dopasowanie dla danych testowych: "+str(best_model.evaluate(X_test, y_test)[1])+" ---------")
+    file.write("\n-----------------------------------------------------------------------\n")
     file.close()
 
 
 def accuracy_plot(model, index, file):
     best_accuracy = max(model.history.history['val_accuracy'])
     best_epoch = model.history.history['val_accuracy'].index(best_accuracy)
-    print('\n----------------- Wyuczony najlepszy model --------------------')
-    print('--------- Epoka: ' + str(best_epoch) + ', najlepsze dopasowanie: ' + str(best_accuracy) + ' -----------------')
-    file.write('\n----------------- Wyuczony najlepszy model --------------------')
-    file.write('--------- Epoka: ' + str(best_epoch) + ', najlepsze dopasowanie: ' + str(best_accuracy) + ' -----------------')
+    print('\n----------------------- Wyuczony najlepszy model ----------------------')
+    print('--------- Epoka: ' + str(best_epoch) + ', najlepsze dopasowanie: ' + str(best_accuracy) + ' ---------')
+    file.write('\n----------------------- Wyuczony najlepszy model ----------------------')
+    file.write('\n--------- Epoka: ' + str(best_epoch) + ', najlepsze dopasowanie: ' + str(best_accuracy) + ' ---------')
     plt.plot(model.history.history['val_accuracy'])
     plt.title('Test Accuracy by Epoch')
     plt.xlabel('Epoch')
@@ -142,4 +142,5 @@ def show_mistakes(model, index, X_test, y_test):
     plt.tight_layout()
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
+    plt.draw()
     plt.savefig('model' + str(index) + '_mistakes.png')
